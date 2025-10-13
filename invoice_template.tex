@@ -1,0 +1,142 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{ragged2e} % For Centering in Minipage
+% \usepackage{datetime}
+
+% --- DOCUMENT SETUP ---
+\geometry{a4paper, margin=1in}
+\setlength{\parindent}{0pt}
+\linespread{1.1}
+
+% --- COLOR DEFINITION ---
+\definecolor{TitleBlue}{HTML}{2C3E50} % Deep Charcoal/Navy
+
+% --- CUSTOM DATA COMMANDS (Fill these in) ---
+% --- Personal data ---
+\newcommand{\MyName}{xxxxx}
+\newcommand{\MyAddress}{xxxxx}
+\newcommand{\MyAddressMore}{xxxxx}
+\newcommand{\MyAddressZipCode}{xxxxx}
+\newcommand{\MyCity}{xxxxx}
+\newcommand{\MyEmail}{xxxxx}
+% --- Bill to info ---
+\newcommand{\BillToName}{xxxxx}
+\newcommand{\BillToRUT}{xxxxx}
+\newcommand{\BillToAddress}{xxxxx}
+\newcommand{\BillToCity}{xxxxx}
+\newcommand{\BillToEmail}{xxxxx}
+% --- Money info ---
+\newcommand{\RateAmount}{xxxxx}
+% --- Bank info ---
+\newcommand{\BankName}{xxxxx}
+\newcommand{\SwiftCode}{xxxxx}
+\newcommand{\IBAN}{xxxxx}
+\newcommand{\BankAddress}{xxxxx}
+% --- Invoice info ---
+\newcommand{\InvoiceNumber}{xxxxx}
+\newcommand{\IssueDate}{xxxxx}
+\newcommand{\PeriodStart}{xxxxx}
+\newcommand{\PeriodEnd}{xxxxx}
+\newcommand{\Year}{xxxxx}
+
+
+\begin{document}
+
+\raggedright % Align all text to the left
+
+% ---------------------------------
+% 1. INVOICE TITLE
+% ---------------------------------
+\color{TitleBlue}
+{\Huge\textbf{INVOICE}}
+
+\vspace{0.2cm}
+\hrule height 2pt
+\vspace{1cm}
+\color{black}
+
+% ---------------------------------
+% 2. SENDER/RECEIVER & METADATA
+% ---------------------------------
+\begin{tabularx}{\linewidth}{@{}p{0.5\linewidth} X@{}}
+    % LEFT COLUMN: Sender Details
+    \parbox[t]{0.95\linewidth}{
+        \textbf{FROM} \\
+        \vspace{0.1cm} \\
+        \MyName \\
+        \MyAddress \\
+        \MyAddressMore \\
+        \MyCity \\
+        \MyAddressZipCode \\
+        \MyEmail \\
+    }
+    &
+    % RIGHT COLUMN: Invoice Metadata
+    \parbox[t]{0.95\linewidth}{
+        \vspace{0.5cm}
+        \textbf{INVOICE NO.:} \InvoiceNumber
+    }
+    \\
+\end{tabularx}
+
+\vspace{1.5cm}
+
+\begin{tabularx}{\linewidth}{@{}p{0.5\linewidth} X@{}}
+    % LEFT COLUMN: Recipient Details
+    \parbox[t]{0.95\linewidth}{
+        \textbf{BILL TO} \\
+        \vspace{0.1cm} \\
+        \BillToName \\
+        \BillToRUT \\
+        \BillToAddress \\
+        \BillToCity \\
+        \BillToEmail \\
+    }
+    &
+    % RIGHT COLUMN: Date Metadata
+    \parbox[t]{0.95\linewidth}{
+        \vspace{0.5cm}
+        \textbf{ISSUE DATE:} \IssueDate
+    }
+    \\
+\end{tabularx}
+
+\vspace{2cm}
+
+% ---------------------------------
+% 3. DESCRIPTION AND COMPENSATION DETAILS TABLE
+% ---------------------------------
+\begin{tabularx}{\linewidth}{@{}X r r @{}} % X column for description, r for right-aligned data
+    \toprule
+    \addlinespace[0.5cm]
+    \textbf{DESCRIPTION} & \textbf{RATE (USD)} & \textbf{TOTAL (USD)} \\
+    \addlinespace[0.5cm]
+    \Large Software Development Services \\
+    \Large From \PeriodStart\ to \PeriodEnd, \Year & \$\RateAmount & \$\RateAmount \\
+    \addlinespace[0.5cm]
+    \bottomrule
+    \addlinespace[0.2cm]
+    \multicolumn{3}{r}{\color{TitleBlue}\textbf{TOTAL AMOUNT: \$\RateAmount}} \\
+\end{tabularx}
+
+\vspace{2cm}
+
+% ---------------------------------
+% 4. BANK DATA
+% ---------------------------------
+\textbf{MAKE PAYMENT TO}
+
+\vspace{0.5cm}
+
+\begin{tabular}{@{}l l@{}}
+    \textbf{Beneficiary Bank:} & \BankName \\
+    \textbf{SWIFT CODE:} & \SwiftCode \\
+    \textbf{IBAN:} & \IBAN \\
+    \textbf{Address:} & \BankAddress \\
+\end{tabular}
+
+\end{document}
