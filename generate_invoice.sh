@@ -90,3 +90,5 @@ echo "Cleaning up files..."
 rm -f *.aux *.log
 
 echo "Done."
+# Notification
+osascript -e 'display notification "Invoice generated." with title "Invoice" sound name "Blow"'

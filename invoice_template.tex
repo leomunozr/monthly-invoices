@@ -5,7 +5,7 @@
 \usepackage{booktabs}
 \usepackage{xcolor}
 \usepackage{ragged2e} % For Centering in Minipage
-% \usepackage{datetime}
+\usepackage{pgf}      % For calculations
 
 % --- DOCUMENT SETUP ---
 \geometry{a4paper, margin=1in}
@@ -30,12 +30,17 @@
 \newcommand{\BillToCity}{xxxxx}
 \newcommand{\BillToEmail}{xxxxx}
 % --- Money info ---
+\newcommand{\Qty}{xxxxx}
 \newcommand{\RateAmount}{xxxxx}
 % --- Bank info ---
 \newcommand{\BankName}{xxxxx}
 \newcommand{\SwiftCode}{xxxxx}
 \newcommand{\IBAN}{xxxxx}
 \newcommand{\BankAddress}{xxxxx}
+\newcommand{\BankAddressInt}{xxxxx}
+\newcommand{\BankAddressMore}{xxxxx}
+\newcommand{\BankAddressZipCode}{xxxxx}
+\newcommand{\BankAddressCity}{xxxxx}
 % --- Invoice info ---
 \newcommand{\InvoiceNumber}{xxxxx}
 \newcommand{\IssueDate}{xxxxx}
@@ -43,6 +48,11 @@
 \newcommand{\PeriodEnd}{xxxxx}
 \newcommand{\Year}{xxxxx}
 
+% --- AUTOMATIC CALCULATIONS ---
+% Calculates the total amount and formats it to two decimal places.
+% Usage: \pgfmathsetmacro{\command}{calculation}
+% The calculation is (\Qty / 100) * \RateAmount
+\pgfmathsetmacro{\TotalAmount}{(\Qty/100) * \RateAmount}
 
 \begin{document}
 
@@ -54,7 +64,7 @@
 \color{TitleBlue}
 {\Huge\textbf{INVOICE}}
 
-\vspace{0.2cm}
+\vspace{0.5cm}
 \hrule height 2pt
 \vspace{1cm}
 \color{black}
@@ -77,13 +87,14 @@
     &
     % RIGHT COLUMN: Invoice Metadata
     \parbox[t]{0.95\linewidth}{
-        \vspace{0.5cm}
-        \textbf{INVOICE NO.:} \InvoiceNumber
+        \textbf{INVOICE NO.:} \InvoiceNumber \\
+        \vspace{0.1cm} \\
+        \textbf{ISSUE DATE:} \IssueDate
     }
     \\
 \end{tabularx}
 
-\vspace{1.5cm}
+\vspace{1cm}
 
 \begin{tabularx}{\linewidth}{@{}p{0.5\linewidth} X@{}}
     % LEFT COLUMN: Recipient Details
@@ -96,31 +107,24 @@
         \BillToCity \\
         \BillToEmail \\
     }
-    &
-    % RIGHT COLUMN: Date Metadata
-    \parbox[t]{0.95\linewidth}{
-        \vspace{0.5cm}
-        \textbf{ISSUE DATE:} \IssueDate
-    }
-    \\
 \end{tabularx}
 
-\vspace{2cm}
+\vspace{1cm}
 
 % ---------------------------------
 % 3. DESCRIPTION AND COMPENSATION DETAILS TABLE
 % ---------------------------------
-\begin{tabularx}{\linewidth}{@{}X r r @{}} % X column for description, r for right-aligned data
+\begin{tabularx}{\linewidth}{@{}X r r r @{}} % X column for description, r for right-aligned data
     \toprule
     \addlinespace[0.5cm]
-    \textbf{DESCRIPTION} & \textbf{RATE (USD)} & \textbf{TOTAL (USD)} \\
+    \textbf{DESCRIPTION} & \textbf{QTY} & \textbf{RATE (USD)} & \textbf{TOTAL (USD)} \\
     \addlinespace[0.5cm]
-    \Large Software Development Services \\
-    \Large From \PeriodStart\ to \PeriodEnd, \Year & \$\RateAmount & \$\RateAmount \\
+    \Large Software Development Services \\ % Using \pgfmathprintnumber to format the result
+    \Large From \PeriodStart\ to \PeriodEnd, \Year & \Qty\% & \$\RateAmount & \$\TotalAmount \\
     \addlinespace[0.5cm]
     \bottomrule
     \addlinespace[0.2cm]
-    \multicolumn{3}{r}{\color{TitleBlue}\textbf{TOTAL AMOUNT: \$\RateAmount}} \\
+    \multicolumn{4}{r}{\color{TitleBlue}\textbf{TOTAL AMOUNT: \$\TotalAmount}} \\
 \end{tabularx}
 
 \vspace{2cm}
@@ -137,6 +141,10 @@
     \textbf{SWIFT CODE:} & \SwiftCode \\
     \textbf{IBAN:} & \IBAN \\
     \textbf{Address:} & \BankAddress \\
+    & \BankAddressInt \\
+    & \BankAddressMore \\
+    & \BankAddressCity \\
+    & \BankAddressZipCode \\
 \end{tabular}
 
 \end{document}
